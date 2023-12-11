@@ -1,7 +1,7 @@
 #include <iostream>
 #include <array>
 #include <stdexcept>
-
+#include <algorithm>
 template <class T, size_t TAM_MAX> 
 class Pilha {
   private:

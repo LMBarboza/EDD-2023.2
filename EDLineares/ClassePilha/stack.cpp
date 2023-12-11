@@ -11,7 +11,7 @@ class Pilha {
     Pilha(): topo(0){}
     void empilha(T dado){
       if (topo >= TAM_MAX){
-        throw std::lenght_error("1");
+        throw std::length_error("1");
       pilha[topo++] = dado;
       }
     }
@@ -26,7 +26,7 @@ class Pilha {
     bool pilha_esta_vazia(void){return (topo >= TAM_MAX);}
     void troca(void) {
       if (topo < 2){
-        std::lenght_error("1");
+        throw std::length_error("1");
       }
       std::swap(pilha[topo - 1], pilha[topo -2]);
     }

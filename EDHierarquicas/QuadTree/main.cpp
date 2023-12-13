@@ -20,6 +20,8 @@ int main() {
 
 	QT.insert(&n3);
 	QT.insert(&n4);
+	QT.insert(&n5);
+	QT.insert(&n6);
 	
 	cout << "oii" << endl;
 }

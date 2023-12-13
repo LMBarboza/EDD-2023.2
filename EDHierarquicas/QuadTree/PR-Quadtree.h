@@ -37,19 +37,25 @@ public:
 
 class QuadTree {
 public:
+    Point btmL;
+    Point topR;
+    ///Rectangle boundary;
     QuadTree(Point btmleft, Point toprght) {
 
         Rectangle boundary(btmleft, toprght);
-        Point btmL(btmleft.x, btmleft.y);
-        Point topR(toprght.x, toprght.y);
+        btmL = btmleft;
+        topR = toprght;
+        
 
 
     }
-
+    
     QuadTree* topleftT;
     QuadTree* toprghtT;
     QuadTree* btmleftT;
     QuadTree* btmrghtT;
+
+   
 
     bool folha = true;
     Node* n;
@@ -60,7 +66,7 @@ public:
 
     void insert(Node* point) {
         if (point == NULL) { return; }
-        if (!inBoundary(point->pos)) { return; }
+        if (!inBoundary(point->pos)) { cout << "Boundary" << endl; return; }
 
         if (abs(topR.x - btmL.x <= 1) && abs(topR.y - btmL.y) <= 1) {
             if (n == NULL) {
@@ -79,9 +85,11 @@ public:
             insert(n);
         }
 
+        cout << "subdivisoes" << endl;
+
         if (point->pos.x <= (topR.x + btmL.x) / 2) {
             if ((point->pos.y <= (topR.y + btmL.y) / 2)) {
-                cout << "inferior esquerdo" << endl;
+                cout << point->pos.x << " , " << point->pos.y << "inferior esquerdo" << endl;
                 if (topleftT == NULL) {
                     topleftT = new QuadTree(
                         Point(btmL.x, btmL.y),
@@ -91,7 +99,7 @@ public:
                 topleftT->insert(point);
             }
             else {
-                cout << "superior esquerdo" << endl;
+                cout << point->pos.x << " , " << point->pos.y << "superior esquerdo" << endl;
                 if (topleftT == NULL) {
                     topleftT = new QuadTree(
                         Point(btmL.x, (btmL.y + topR.y) / 2),
@@ -104,7 +112,7 @@ public:
         else {
             //direitos
             if (point->pos.y <= (btmL.y + topR.y) / 2) {
-                cout << "inferior direito" << endl;
+                cout << point->pos.x << " , " << point->pos.y << "inferior direito" << endl;
                 if (btmrghtT == NULL) {
                     btmrghtT = new QuadTree(
                         Point(btmL.y, (btmL.x + topR.x) / 2),
@@ -113,7 +121,7 @@ public:
                 btmrghtT->insert(point);
             }
             else {
-                cout << "superior direito" << endl;
+                cout << point->pos.x << " , " << point->pos.y << "superior direito" << endl;
                 if (toprghtT == NULL) {
                     toprghtT = new QuadTree(
                         Point((btmL.x + topR.x) / 2, (btmL.y + topR.y) / 2),

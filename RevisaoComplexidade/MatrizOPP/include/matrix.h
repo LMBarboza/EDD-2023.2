@@ -1,47 +1,59 @@
-#include <vector>
-#include <iostream>
+#ifndef MATRIX_H
+#define MATRIX_H
 
-class MatrizQ; // Forward declaration
-class MatrizD; // Forward declaration
+#include <vector>
+#include <stdexcept>
 
 class Matriz {
-protected:
-  std::vector<std::vector<double>> elementos;
-
 public:
-  Matriz(const std::vector<std::vector<double>>& dados);
+    std::vector<std::vector<double>> elementos;
 
-  void print() const;
+    Matriz(const std::vector<std::vector<double>>& dados);
 
-  Matriz operator+(const Matriz& obj) const;
-  Matriz operator-(const Matriz& obj) const;
-  void difMatrizD(const class MatrizQ& matrizQ, const class MatrizD& matrizD, std::vector<std::vector<double>>& res) const;
-  void somaMatrizD(const class MatrizQ& matrizQ, const class MatrizD& matrizD, std::vector<std::vector<double>>& res) const;
-  Matriz operator*(double a) const;
-  void mulMatrizD(const class MatrizD& matrizD, std::vector<std::vector<double>>& res, double a) const;
-  Matriz operator/(const Matriz& obj) const;
-  Matriz transpor() const;
+    void print();
+
+    virtual Matriz operator+(const Matriz& obj);
+
+    virtual Matriz operator-(const Matriz& obj);
+
+    virtual Matriz operator*(double a);
+
+    Matriz operator/(const Matriz& obj);
+
+    Matriz transpor();
+
 };
 
 class MatrizQ : public Matriz {
 public:
-  MatrizQ(const std::vector<std::vector<double>>& dados);
+    MatrizQ(const std::vector<std::vector<double>>& dados);
 
-  double trace() const;
+    double trace();
+
 };
 
 class MatrizT : public MatrizQ {
 public:
-  MatrizT(const std::vector<std::vector<double>>& dados);
+    MatrizT(const std::vector<std::vector<double>>& dados);
 
-  double determinante() const;
+    double determinante() const;
+
 };
 
 class MatrizD : public MatrizT {
 public:
-  MatrizD(const std::vector<double>& valoresDiagonal);
+    MatrizD(const std::vector<double>& valoresDiagonal);
+
+    Matriz operator-(const MatrizD& obj);
+
+    Matriz operator+(const MatrizD& obj);
+
+    Matriz operator*(double a);
 
 private:
-  static std::vector<std::vector<double>> criarMatrizDiagonal(const std::vector<double>& valoresDiagonal);
+    static std::vector<std::vector<double>> criarMatrizDiagonal(const std::vector<double>& valoresDiagonal);
+
 };
+
+#endif // MATRIX_H
 

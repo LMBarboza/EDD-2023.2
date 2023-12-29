@@ -32,8 +32,8 @@ class HashTable:
             index = (index - 1) % self.size
         return False
 
-def remove_duplicates_from_csv(file_path):
-    df = pd.read_csv(file_path)
+def remover_duplicata(path):
+    df = pd.read_csv(path)
     hash_table = HashTable(len(df)) 
     key_values = df["DRE"]
     data_val = df ["nota"]
@@ -45,6 +45,5 @@ def remove_duplicates_from_csv(file_path):
     return hash_table
 
 if __name__ == "__main__":
-    file_path = "../data/DRE.csv"
-    result_hash_table = remove_duplicates_from_csv(file_path)
-    print(result_hash_table.table)
+    path = "../data/DRE.csv"
+    hash_final = remover_duplicata(path)

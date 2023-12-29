@@ -6,17 +6,17 @@ class HashTable:
         self.size: int = size
         self.table: List[Optional[Tuple[int, Any]]] = [None] * self.size
 
-    def _hash(self, key: int) -> int:
+    def hash(self, key: int) -> int:
         return key % self.size
 
     def insert(self, key: int, data: any) -> None:
-        index: int = self._hash(key)
+        index: int = self.hash(key)
         while self.table[index] is not None:
             index = (index + 1) % self.size
         self.table[index] = (key, data)
 
     def search(self, key: int) -> Optional[any]:
-        index: int = self._hash(key)
+        index: int = self.hash(key)
         while self.table[index] is not None:
             if self.table[index][0] == key:
                 return self.table[index][1]
@@ -24,7 +24,7 @@ class HashTable:
         return None
 
     def remove(self, key: int) -> bool:
-        index: int = self._hash(key)
+        index: int = self.hash(key)
         while self.table[index] is not None:
             if self.table[index][0] == key:
                 self.table[index] = None
